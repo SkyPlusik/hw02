@@ -58,7 +58,7 @@ public class Dictionary {
         }
         catch (IOException ex)
         {
-            System.out.println("Ошибка чтения файла!" );
+            System.out.println("Ошибка чтения файла!");
         }
     }
     private void write()
@@ -75,7 +75,7 @@ public class Dictionary {
         }
         catch (IOException ex)
         {
-            System.out.println("Ошибка записи в файл!" );
+            System.out.println("Ошибка записи в файл!");
         }
 
     }
