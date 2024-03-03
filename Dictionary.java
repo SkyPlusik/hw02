@@ -2,21 +2,20 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Dictionary {
-    private FileInputStream input;
-    private PrintWriter output;
-    private String in_filepath;
-    private String out_filepath;
-    private static int size = 52;
+    private FileInputStream inFile;
+    private PrintWriter outFile;
+    private String in, out;
+    private static int max_size = 52;
     private int cur_size = 0;
-    private int[][] dictionary = new int[size][2];
+    private int[][] dictionary = new int[max_size][2];
 
     public Dictionary()
     {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter the input file path: ");
-        in_filepath = in.nextLine();
-        System.out.println("Enter the output file path: ");
-        out_filepath = in.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя входного файла: ");
+        in = scanner.nextLine();
+        System.out.println("Введите имя выходного файла: ");
+        out = scanner.nextLine();
         read();
         write();
     }
@@ -32,9 +31,9 @@ public class Dictionary {
     {
         try
         {
-            input = new FileInputStream(in_filepath);
+            inFile = new FileInputStream(in);
             int c;
-            while ((c = input.read()) != -1)
+            while ((c = inFile.read()) != -1)
             {
                 if (c >= 'A' && c <= 'Z' || c >='a' && c <= 'z')
                 {
@@ -51,37 +50,32 @@ public class Dictionary {
                     }
                 }
             }
-            input.close();
+            inFile.close();
         }
         catch (FileNotFoundException ex)
         {
-            System.out.println("File does not Exists");
+            System.out.println("Файла не существует!");
         }
         catch (IOException ex)
         {
-            System.out.println("File reading error" );
+            System.out.println("Ошибка чтения файла!" );
         }
     }
-
     private void write()
     {
         try
         {
-            FileWriter fileWriter = new FileWriter(out_filepath);
-            output = new PrintWriter(fileWriter);
+            FileWriter fileWriter = new FileWriter(out);
+            outFile = new PrintWriter(fileWriter);
             for(int i = 0; i < cur_size; i++)
             {
-                output.print((char)dictionary[i][0] + " : " + dictionary[i][1] + "\n");
+                outFile.print((char)dictionary[i][0] + " : " + dictionary[i][1] + "\n");
             }
-            output.close();
-        }
-        catch (FileNotFoundException ex)
-        {
-            System.out.println("File does not Exists");
+            outFile.close();
         }
         catch (IOException ex)
         {
-            System.out.println("File writing error" );
+            System.out.println("Ошибка записи в файл!" );
         }
 
     }
