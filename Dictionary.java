@@ -1,9 +1,10 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Dictionary {
     private FileInputStream inFile;
-    private PrintWriter outFile;
+    private FileOutputStream outFile;
     private String in, out;
     private static int max_size = 52;
     private int cur_size = 0;
@@ -58,24 +59,23 @@ public class Dictionary {
         }
         catch (IOException ex)
         {
-            System.out.println("Ошибка чтения файла!");
+            System.out.println("Ошибка чтения файла!" );
         }
     }
     private void write()
     {
         try
         {
-            FileWriter fileWriter = new FileWriter(out);
-            outFile = new PrintWriter(fileWriter);
+            outFile = new FileOutputStream(out, false);
             for(int i = 0; i < cur_size; i++)
             {
-                outFile.print((char)dictionary[i][0] + " : " + dictionary[i][1] + "\n");
+                outFile.write(((char)dictionary[i][0] + " : " + dictionary[i][1] + "\n").getBytes());
             }
             outFile.close();
         }
         catch (IOException ex)
         {
-            System.out.println("Ошибка записи в файл!");
+            System.out.println("Ошибка записи в файл!" );
         }
 
     }
